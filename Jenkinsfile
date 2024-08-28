@@ -4,60 +4,40 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    // Checkout code from Git repository
-                    checkout scm
-                }
+                echo "Checking out code from Git repository"
+                checkout scm
             }
         }
 
-        stage('MVN Clean') {
+        stage('MVN Build') {
             steps {
-                script {
-                    // Run Maven clean
-                    sh 'mvn clean'
-                }
-            }
-        }
-
-        stage('MVN Compile') {
-            steps {
-                script {
-                    // Run Maven compile
-                    sh 'mvn compile'
-                }
+                echo "Running Maven build"
+                sh 'mvn clean install'
             }
         }
 
         stage('SonarQube Analysis') {
             environment {
-                // Define SonarQube environment variables
-                SONARQUBE_URL = 'http://localhost:9000' // Change if needed
-                SONARQUBE_SCANNER = tool 'SonarQube Scanner' // Adjust to your SonarQube Scanner tool name
+                SONARQUBE_URL = 'http://localhost:9000' // Update if needed
             }
             steps {
-                script {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv('MySonarQube') { // Adjust 'MySonarQube' to your SonarQube server name in Jenkins
-                        sh 'mvn sonar:sonar'
-                    }
+                echo "Running SonarQube analysis"
+                withSonarQubeEnv('MySonarQube') { // Adjust 'MySonarQube' to your SonarQube server name in Jenkins
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
 
         stage('Quality Gate') {
             steps {
-                script {
-                    // Wait for SonarQube quality gate
-                    waitForQualityGate abortPipeline: true
-                }
+                echo "Waiting for SonarQube quality gate"
+                waitForQualityGate abortPipeline: true
             }
         }
     }
 
     post {
         always {
-            // Clean up actions or notifications
             echo 'Pipeline finished.'
         }
     }
