@@ -2,29 +2,63 @@ pipeline {
     agent any
 
     stages {
-        stage('GIT') {
+        stage('Checkout') {
             steps {
-                echo "Getting Project from git"
-                // Add actual Git commands here
+                script {
+                    // Checkout code from Git repository
+                    checkout scm
+                }
             }
         }
-        
-        stage('MVN CLEAN') {
+
+        stage('MVN Clean') {
             steps {
-                sh 'mvn clean'
+                script {
+                    // Run Maven clean
+                    sh 'mvn clean'
+                }
             }
         }
-    
-        stage('MVN COMPILE') {
+
+        stage('MVN Compile') {
             steps {
-                sh 'mvn compile'
+                script {
+                    // Run Maven compile
+                    sh 'mvn compile'
+                }
             }
         }
-            
-        stage('MVN SonarQube') {
-            steps {
-                // Add SonarQube scan commands here
+
+        stage('SonarQube Analysis') {
+            environment {
+                // Define SonarQube environment variables
+                SONARQUBE_URL = 'http://localhost:9000' // Change if needed
+                SONARQUBE_SCANNER = tool 'SonarQube Scanner' // Adjust to your SonarQube Scanner tool name
             }
+            steps {
+                script {
+                    // Run SonarQube analysis
+                    withSonarQubeEnv('MySonarQube') { // Adjust 'MySonarQube' to your SonarQube server name in Jenkins
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    // Wait for SonarQube quality gate
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up actions or notifications
+            echo 'Pipeline finished.'
         }
     }
 }
