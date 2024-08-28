@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
                 echo "Running SonarQube analysis"
-                withSonarQubeEnv('MySonarQube') { // Adjust 'MySonarQube' to your SonarQube server name in Jenkins
+                withSonarQubeEnv('MySonarQube') { // Ensure 'MySonarQube' matches the configured name
                     sh 'mvn sonar:sonar'
                 }
             }
