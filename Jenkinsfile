@@ -8,6 +8,7 @@ pipeline {
                 .....................................
             }
         }
+        
         stage('MVN CLEAN') {
                 steps {
                     sh '............'
@@ -20,10 +21,9 @@ pipeline {
                 }
         }
             
-        stage('SonarQube Analysis') {
+        stage('MVN SonarQube') {
             steps {
                 ....................................
-                }
             }
         }
     }
