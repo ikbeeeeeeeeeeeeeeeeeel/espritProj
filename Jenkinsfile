@@ -18,8 +18,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             def mvn = tool 'Default Maven';
-            withSonarQubeEnv() {
-              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=espritProj -Dsonar.projectName='espritProj'"
+            environment {
+                SONARQUBE_URL = 'http://localhost:9000' 
             }
         }
 
