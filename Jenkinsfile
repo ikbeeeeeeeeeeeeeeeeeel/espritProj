@@ -12,7 +12,7 @@ pipeline {
         stage('MVN Build') {
             steps {
                 echo "Running Maven build"
-                sh 'Maven clean install'
+                sh 'mvn clean install'
             }
         }
 
