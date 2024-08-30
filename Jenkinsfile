@@ -17,14 +17,9 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                SONARQUBE_URL = 'http://localhost:9000' 
-            }
-            steps {
-                echo "Running SonarQube analysis"
-                withSonarQubeEnv('MySonarQube') { 
-                    sh 'mvn sonar:sonar'
-                }
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=espritProj -Dsonar.projectName='espritProj'"
             }
         }
 
