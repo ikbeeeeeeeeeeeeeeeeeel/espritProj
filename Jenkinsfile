@@ -18,11 +18,11 @@ pipeline {
 
         stage('SonarQube Analysis') {
             environment {
-                SONARQUBE_URL = 'http://localhost:9000' // Update if needed
+                SONARQUBE_URL = 'http://localhost:9000' 
             }
             steps {
                 echo "Running SonarQube analysis"
-                withSonarQubeEnv('MySonarQube') { // Ensure 'MySonarQube' matches the configured name
+                withSonarQubeEnv('MySonarQube') { 
                     sh 'mvn sonar:sonar'
                 }
             }
