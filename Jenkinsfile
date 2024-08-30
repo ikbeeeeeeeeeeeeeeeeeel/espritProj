@@ -17,9 +17,14 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            def mvn = tool 'Default Maven';
             environment {
                 SONARQUBE_URL = 'http://localhost:9000' 
+            }
+            steps {
+                echo "Running SonarQube analysis"
+                withSonarQubeEnv('MySonarQube') { 
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
 
