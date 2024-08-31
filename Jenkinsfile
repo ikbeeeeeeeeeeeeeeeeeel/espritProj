@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo "Running SonarQube analysis"
                 withSonarQubeEnv('MySonarQube') { 
-                    sh 'mvn sonar:sonar'
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.host.url=http://localhost:9000'
                 }
             }
         }
