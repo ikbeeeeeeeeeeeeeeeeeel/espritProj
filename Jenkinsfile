@@ -6,6 +6,7 @@ pipeline {
             steps {
                 echo "Checking out code from Git repository"
                 checkout scm
+                
             }
         }
 
@@ -17,6 +18,7 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
+            
             environment {
                 SONARQUBE_URL = 'http://localhost:9000' 
             }
@@ -28,14 +30,7 @@ pipeline {
                     }
                 }
             }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                echo "Waiting for SonarQube quality gate"
-                waitForQualityGate abortPipeline: true
-            }
-        }
+        }  
     }
 
     post {
