@@ -18,12 +18,13 @@ pipeline {
         }
         
 
-        stage('SonarQube Analysis') {
-            steps {
-                withCredentials([string(credentialsId: 'mahsem', variable: 'SONAR_TOKEN')]) { 
-                    withSonarQubeEnv('MySonarQube') { 
-                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:6.1.0.4477:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
-                    }
+     stage('Code quality test') {
+            steps { 
+                script {
+                    sh 'chmod +x ./mvnw'
+                }
+                withSonarQubeEnv(installationName: 'sonar') {
+                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.1492:sonar'
                 }
             }
         }  
