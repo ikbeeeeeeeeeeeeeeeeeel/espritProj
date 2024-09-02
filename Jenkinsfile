@@ -20,9 +20,7 @@ pipeline {
 
      stage('Code quality test') {
             steps { 
-                script {
-                    sh 'chmod +x ./mvnw'
-                }
+                
                 withSonarQubeEnv(installationName: 'MySonarQube') {
                     sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.1492:sonar'
                 }
