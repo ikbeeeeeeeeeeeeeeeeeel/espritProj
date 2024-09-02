@@ -22,22 +22,23 @@ pipeline {
             steps {               
                 sh 'mvn compile'
             }
-        } 
+         } 
 
- stage('Code quality test') {
-            steps { 
-                script {
-                    sh 'chmod +x ./mvnw'
+         stage('Code quality test') {
+                steps { 
+                    script {
+                        sh 'chmod +x ./mvnw'
+                    }
+                    withSonarQubeEnv(installationName: 'MySonarQube') {
+                        sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
+                    }
                 }
-                withSonarQubeEnv(installationName: 'MySonarQube') {
-                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
-                }
+            } 
+        
+        post {
+            always {
+                echo 'Pipeline finished.'
             }
-        } 
-
-    post {
-        always {
-            echo 'Pipeline finished.'
         }
     }
 }
