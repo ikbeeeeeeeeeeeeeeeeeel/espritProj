@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-    		DOCKERHUB_CREDENTIALS=credentials('dock')
-    	}
-
     stages {
         stage('Code Recuperation') {
             steps {
@@ -25,20 +21,20 @@ pipeline {
          } 
 
          stage('Code quality test') {
-                steps { 
-                    script {
-                        sh 'chmod +x ./mvnw'
-                    }
-                    withSonarQubeEnv(installationName: 'MySonarQube') {
-                        sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
-                    }
+            steps { 
+                script {
+                    sh 'chmod +x ./mvnw'
                 }
-            } 
-        
-        post {
-            always {
-                echo 'Pipeline finished.'
+                withSonarQubeEnv(installationName: 'MySonarQube') {
+                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
+                }
             }
+        }
+    }
+        
+    post {
+        always {
+            echo 'Pipeline finished.'
         }
     }
 }
