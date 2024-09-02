@@ -77,11 +77,12 @@
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
-           <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>4.0.0.1744</version>
-           </plugin>
+            <plugin>
+                  <groupId>org.sonarsource.scanner.maven</groupId>
+                  <artifactId>sonar-maven-plugin</artifactId>
+                  
+                     <version>4.0.0.1744</version>
+            </plugin>
         </plugins>
     </build>
 
