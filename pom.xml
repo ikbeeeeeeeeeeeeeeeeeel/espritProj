@@ -77,11 +77,6 @@
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
-            <plugin>
-                  <groupId>org.sonarsource.scanner.maven</groupId>
-                  <artifactId>sonar-maven-plugin</artifactId>
-                  <version>6.1.0.4477</version>
-            </plugin>
         </plugins>
     </build>
 
