@@ -18,15 +18,10 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            
-            environment {
-                SONARQUBE_URL = 'http://localhost:9000' 
-            }
             steps {
-                echo "Running SonarQube analysis"
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) { 
+                withCredentials([string(credentialsId: 'mahsem', variable: 'SONAR_TOKEN')]) { 
                     withSonarQubeEnv('MySonarQube') { 
-                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.0.0.702:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
                     }
                 }
             }
