@@ -21,7 +21,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'mahsem', variable: 'SONAR_TOKEN')]) { 
                     withSonarQubeEnv('MySonarQube') { 
-                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.0.0.702:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
+                        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.1744:sonar -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONAR_TOKEN'
                     }
                 }
             }
