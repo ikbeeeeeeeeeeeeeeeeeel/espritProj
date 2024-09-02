@@ -1,35 +1,39 @@
 pipeline {
     agent any
 
+    environment {
+    		DOCKERHUB_CREDENTIALS=credentials('dock')
+    	}
+
     stages {
-        stage('Checkout') {
+        stage('Code Recuperation') {
             steps {
-                echo "Checking out code from Git repository"
                 checkout scm
-                
             }
         }
 
-        stage('MVN Build') {
-            steps {
-                echo "Running Maven build"
-                sh 'mvn clean install'
+        stage('Remove old release') {
+            steps {               
+                sh 'mvn clean'
             }
         }
-        
 
-     stage('Code quality test') {
+        stage('Compiling') {
+            steps {               
+                sh 'mvn compile'
+            }
+        } 
+
+ stage('Code quality test') {
             steps { 
                 script {
                     sh 'chmod +x ./mvnw'
                 }
-                
                 withSonarQubeEnv(installationName: 'MySonarQube') {
-                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.1492:sonar'
+                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
                 }
             }
-        }  
-    }
+        } 
 
     post {
         always {
