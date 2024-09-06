@@ -12,12 +12,6 @@ pipeline {
             }
         }
 
-        stage('Remove old release') {
-            steps {               
-                sh 'mvn clean install'
-            }
-        }
-
         stage('Compiling') {
             steps {               
                 sh 'mvn compile'
@@ -32,6 +26,12 @@ pipeline {
                 withSonarQubeEnv(installationName: 'MySonarQube') {
                     sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
                 }
+            }
+        }
+        
+        stage('Remove old release') {
+            steps {               
+                sh 'mvn clean install'
             }
         }
     }
