@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'M2_HOME' 
+    }
+
     stages {
         stage('Code Recuperation') {
             steps {
