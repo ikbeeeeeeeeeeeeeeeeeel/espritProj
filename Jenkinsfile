@@ -6,13 +6,7 @@ pipeline {
             steps {
                 checkout scm
             }
-        }
-
-        stage('Compiling') {
-            steps {               
-                sh 'mvn compile'
-            }
-         } 
+        } 
 
          stage('Code quality test') {
             steps { 
@@ -30,6 +24,12 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        
+        stage('Compiling') {
+            steps {               
+                sh 'mvn compile'
+            }
+         }
     }
         
     post {
