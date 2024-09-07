@@ -31,6 +31,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('Quality Gate') {
+            steps {
+                echo "Waiting for SonarQube quality gate"
+                waitForQualityGate abortPipeline: true
+            }
+        }
     }
         
     post {
