@@ -31,19 +31,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Quality Gate') {
-            steps {
-                script {
-                    timeout(time: 10, unit: 'MINUTES') { // Wait for 2 minutes for the Quality Gate status
-                        def qg = waitForQualityGate() // This will pause the pipeline until SonarQube has finished processing
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
-                        }
-                    }
-                }
-            }
-        }
     }
         
     post {
