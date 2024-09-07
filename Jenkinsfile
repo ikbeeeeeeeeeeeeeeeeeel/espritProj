@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'MAVEN_HOME'
+        jdk 'JAVA_HOME'
     }
 
     stages {
@@ -18,6 +19,18 @@ pipeline {
             steps {
                 echo "Running Maven build"
                 sh 'mvn clean install'
+            }
+        }
+        stage('JDK Test') {
+            steps {
+                echo "Testing JDK Installation"
+                sh '''
+                # Print Java version to verify JDK installation
+                java -version
+
+                # Print JAVA_HOME to ensure it's set correctly
+                echo $JAVA_HOME
+                '''
             }
         }
         
