@@ -27,7 +27,7 @@ pipeline {
                     sh 'chmod +x ./mvnw'
                 }
                 withSonarQubeEnv('MySonarQube') {
-                    sh 'mvn sonar:sonar'
+                    sh 'mvn -X sonar:sonar'
                 }
             }
         }
