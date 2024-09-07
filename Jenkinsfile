@@ -26,8 +26,8 @@ pipeline {
                 script {
                     sh 'chmod +x ./mvnw'
                 }
-                withSonarQubeEnv(installationName: 'MySonarQube') {
-                    sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
+                withSonarQubeEnv('MySonarQube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
