@@ -2,13 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Code Recuperation') {
+        
+        stage('Checkout') {
             steps {
+                echo "Checking out code from Git repository"
                 checkout scm
+                
             }
-        } 
+        }
 
-         stage('Code quality test') {
+        stage('MVN Build') {
+            steps {
+                echo "Running Maven build"
+                sh 'mvn clean install'
+            }
+        }
+        
+        stage('Code quality test') {
             steps { 
                 script {
                     sh 'chmod +x ./mvnw'
@@ -18,18 +28,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Remove old release') {
-            steps {               
-                sh 'mvn clean install'
-            }
-        }
-        
-        stage('Compiling') {
-            steps {               
-                sh 'mvn compile'
-            }
-         }
     }
         
     post {
