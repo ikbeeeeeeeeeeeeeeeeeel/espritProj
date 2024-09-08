@@ -6,12 +6,12 @@
     <distributionManagement>
          <repository>
                   <id>deploymentRepo</id>
-                  <name>admin</name>
+                  <name>Nexus Repository</name>
                   <url>http://172.17.0.4:8081/repository/maven-releases/</url>
          </repository>
          <snapshotRepository>
                  <id>snapshotRepo</id>
-                 <name>admin</name>
+                 <name>Nexus Snapshot Repository</name>
                  <url>http://172.17.0.4:8081/repository/maven-snapshots/</url>
          </snapshotRepository>
     </distributionManagement>
