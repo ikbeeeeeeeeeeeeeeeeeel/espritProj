@@ -39,7 +39,7 @@ pipeline {
                     sh 'chmod +x ./mvnw'
                 }
                 withSonarQubeEnv('MySonarQube') {
-                    sh 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=squ_cf113dfdc89053dde492519fbbba825e00af00d0'
+                    sh 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=squ_4de4f2dbcd7eaa3bd7ef096e02c163fb201db941'
                 }
             }
         }
