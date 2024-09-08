@@ -5,21 +5,11 @@ pipeline {
         jdk 'JAVA_HOME'
     }
 
-    environment{
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.17.0.4:8081"
-        NEXUS_REPOSITORY = "nexus-ikbel"
-        NEXUS_CREDENTIAL_ID = "nexus-ikbel"
-    }
-
     stages {
-        
         stage('Checkout') {
             steps {
                 echo "Checking out code from Git repository"
                 checkout scm
-                
             }
         }
 
@@ -29,6 +19,7 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
         stage('JDK Test') {
             steps {
                 echo "Testing JDK Installation"
@@ -41,34 +32,33 @@ pipeline {
                 '''
             }
         }
-        
-        stage('Code quality test') {
-            steps { 
+
+        stage('Code Quality Test') {
+            steps {
                 script {
                     sh 'chmod +x ./mvnw'
                 }
                 withSonarQubeEnv('MySonarQube') {
-                    sh 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=squ_4de4f2dbcd7eaa3bd7ef096e02c163fb201db941'
+                    sh 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=squ_cf113dfdc89053dde492519fbbba825e00af00d0'
                 }
             }
         }
+
         stage('Deploy to Nexus') {
             steps {
-                script {
-                    // Use Maven to deploy artifacts to Nexus
-                    withCredentials([usernamePassword(credentialsId: "${NEXUS_CREDENTIAL_ID}", usernameVariable: 'nexus-ikbel', passwordVariable: 'nexus-ikbel')]) {
-                        sh '''
-                        mvn deploy -DskipTests \
-                        -DaltDeploymentRepository=${NEXUS_REPOSITORY}::default::${NEXUS_PROTOCOL}://${NEXUS_URL}/repository/${NEXUS_REPOSITORY}/ \
-                        -Dusername=${NEXUS_USERNAME} \
-                        -Dpassword=${NEXUS_PASSWORD}
-                        '''
-                    }
+                withCredentials([usernamePassword(credentialsId: 'nexus-ikbel', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh '''
+                    mvn deploy \
+                        -DskipTests \
+                        -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases/ \
+                        -DrepositoryId=deploymentRepo \
+                        -Durl=http://172.17.0.4:8081/repository/maven-releases/
+                    '''
                 }
             }
         }
     }
-        
+
     post {
         always {
             echo 'Pipeline finished.'
