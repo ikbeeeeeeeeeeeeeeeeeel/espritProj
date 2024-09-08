@@ -46,7 +46,7 @@ pipeline {
 
         stage('Deploy to Nexus') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus-ikbel', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'nexus-ikbel', usernameVariable: 'admin', passwordVariable: 'nexus-ikbel')]) {
                     sh '''
                     mvn deploy \
                         -DskipTests \
