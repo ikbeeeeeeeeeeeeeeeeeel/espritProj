@@ -5,7 +5,7 @@
     <distributionManagement>
          <repository>
                   <id>deploymentRepo</id>
-                  <name>Nexus-ikbel</name>
+                  <name>Nexus Repository</name>
                   <url>http://172.17.0.4:8081/repository/maven-releases/</url>
          </repository>
     </distributionManagement>
