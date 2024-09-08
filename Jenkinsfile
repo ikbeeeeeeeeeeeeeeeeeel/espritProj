@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script {
                     // Use Maven to deploy artifacts to Nexus
-                    withCredentials([usernamePassword(credentialsId: "${NEXUS_CREDENTIAL_ID}", usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: "${NEXUS_CREDENTIAL_ID}", usernameVariable: 'nexus-ikbel', passwordVariable: 'nexus-ikbel')]) {
                         sh '''
                         mvn deploy -DskipTests \
                         -DaltDeploymentRepository=${NEXUS_REPOSITORY}::default::${NEXUS_PROTOCOL}://${NEXUS_URL}/repository/${NEXUS_REPOSITORY}/ \
