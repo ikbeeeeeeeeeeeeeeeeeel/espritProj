@@ -11,6 +11,7 @@ pipeline {
         NEXUS_URL = "172.17.0.4:8081"
         NEXUS_REPOSITORY = "nexus-ikbel"
         NEXUS_CREDENTIAL_ID = "nexus-ikbel"
+    }
 
     stages {
         
