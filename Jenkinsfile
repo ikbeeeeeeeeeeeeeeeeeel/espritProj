@@ -48,7 +48,7 @@ pipeline {
             steps {
                 echo "Preparing for Nexus deployment"
                 // Ensure Maven settings.xml is configured correctly
-                sh 'cat ~/.m2/settings.xml'
+                sh 'cat /usr/share/maven/conf/settings.xml'
             }
         }
 
