@@ -47,22 +47,39 @@ pipeline {
         stage('Prepare for Nexus Deployment') {
             steps {
                 echo "Preparing for Nexus deployment"
-                // Ensure Maven settings.xml is configured correctly
-                sh 'cat /usr/share/maven/conf/settings.xml'
+                script {
+                    def settingsFile = '/usr/share/maven/conf/settings.xml'
+                    if (fileExists(settingsFile)) {
+                        sh "cat ${settingsFile}"
+                    } else {
+                        error "Maven settings.xml file not found at ${settingsFile}"
+                    }
+                }
             }
         }
 
         stage('Deploy to Nexus') {
             steps {
+                echo "Deploying to Nexus"
                 withCredentials([usernamePassword(credentialsId: 'nexus-ikbel', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-                    script{
+                    script {
+                        // Ensure Maven is configured properly
+                        def settingsFile = '/usr/share/maven/conf/settings.xml'
+                        if (fileExists(settingsFile)) {
+                            echo "Maven settings.xml file found at ${settingsFile}"
+                        } else {
+                            error "Maven settings.xml file not found at ${settingsFile}"
+                        }
+                        
+                        // Run Maven deploy command with credentials
                         try {
-                        sh '''
-                        mvn deploy \
-                            -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases/ \
-                            -Dusername=${NEXUS_USERNAME} \
-                            -Dpassword=${NEXUS_PASSWORD}
-                        '''
+                            sh '''
+                            # Run Maven deploy with credentials
+                            mvn deploy \
+                                -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases/ \
+                                -Dusername=${NEXUS_USERNAME} \
+                                -Dpassword=${NEXUS_PASSWORD}
+                            '''
                         } catch (Exception e) {
                             echo "Deployment failed: ${e.message}"
                             currentBuild.result = 'FAILURE'
