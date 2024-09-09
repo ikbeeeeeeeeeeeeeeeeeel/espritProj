@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <distributionManagement>
          <repository>
-                  <id>nexus-ikbel</id>
+                  <id>deploymentRepo</id>
                   <url>http://172.17.0.4:8081/repository/maven-releases/</url>
          </repository>
          <snapshotRepository>
-                 <id>nexus-ikbel</id>
+                 <id>snapshotRepo</id>
                  <url>http://172.17.0.4:8081/repository/maven-snapshots/</url>
          </snapshotRepository>
     </distributionManagement>
