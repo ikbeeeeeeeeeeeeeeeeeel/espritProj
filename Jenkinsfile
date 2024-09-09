@@ -44,6 +44,14 @@ pipeline {
             }
         }
 
+        stage('Prepare for Nexus Deployment') {
+            steps {
+                echo "Preparing for Nexus deployment"
+                // Ensure Maven settings.xml is configured correctly
+                sh 'cat ~/.m2/settings.xml'
+            }
+        }
+
         stage('Deploy to Nexus') {
             steps {
                 sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases'
