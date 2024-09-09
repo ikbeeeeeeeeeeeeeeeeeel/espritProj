@@ -54,7 +54,12 @@ pipeline {
 
         stage('Deploy to Nexus') {
             steps {
-                sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases'
+                withCredentials([usernamePassword(credentialsId: 'nexus-ikbel', usernameVariable: 'nexus-ikbel', passwordVariable: 'newus-ikbel')]) {
+                    sh """
+                        mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases/ \
+                        -Dusername=${nexus-ikbel} -Dpassword=${nexus-ikbel}
+                    """
+                }
             }
         }
     }
