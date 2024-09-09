@@ -32,11 +32,6 @@ pipeline {
                 '''
             }
         }
-        stage('Deploy to Nexus') {
-            steps {
-                sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases'
-            }
-        }
 
         stage('Code Quality Test') {
             steps {
@@ -46,6 +41,12 @@ pipeline {
                 withSonarQubeEnv('MySonarQube') {
                     sh 'mvn sonar:sonar -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=squ_4de4f2dbcd7eaa3bd7ef096e02c163fb201db941'
                 }
+            }
+        }
+
+        stage('Deploy to Nexus') {
+            steps {
+                sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://172.17.0.4:8081/repository/maven-releases'
             }
         }
     }
