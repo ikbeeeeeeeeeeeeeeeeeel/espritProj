@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>tn.esprit</groupId>
@@ -59,13 +59,6 @@
         </dependency>
     </dependencies>
     
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <url>http://172.17.0.4:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
-    
     <build>
         <plugins>
             <plugin>
@@ -104,6 +97,13 @@
             </plugin>     
         </plugins>
     </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <url>http://172.17.0.4:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
     
     <scm>
         <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
