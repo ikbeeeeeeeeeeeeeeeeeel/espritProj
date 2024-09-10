@@ -93,10 +93,6 @@
                 <configuration>
                     <repositoryId>deploymentRepo</repositoryId>
                     <url>http://172.17.0.4:8081/repository/maven-releases/</url>
-                    <snapshotRepository>
-                        <id>snapshotRepo</id>
-                        <url>http://172.17.0.4:8081/repository/maven-snapshots/</url>
-                    </snapshotRepository>
                 </configuration>
             </plugin>     
         </plugins>
@@ -107,10 +103,6 @@
             <id>deploymentRepo</id>
             <url>http://172.17.0.4:8081/repository/maven-releases/</url>
         </repository>
-        <snapshotRepository>
-            <id>snapshotRepo</id>
-            <url>http://172.17.0.4:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
     </distributionManagement>
     
     <scm>
