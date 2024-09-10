@@ -8,6 +8,13 @@
     <version>1.0.0-SNAPSHOT</version>
     <name>eventsProject</name>
     <description>eventsProject</description>
+
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <url>http://172.17.0.4:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
     
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -96,13 +103,6 @@
             </plugin>     
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <url>http://172.17.0.4:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
     
     <scm>
         <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
