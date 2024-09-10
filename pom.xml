@@ -9,12 +9,12 @@
     <name>eventsProject</name>
     <description>eventsProject</description>
 
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <url>http://172.17.0.4:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
+         <distributionManagement>
+                 <repository>
+                     <id>deploymentRepo</id>
+                     <url>http://172.17.0.4:8081/repository/maven-releases/</url>
+                 </repository>
+         </distributionManagement>
     
     <parent>
         <groupId>org.springframework.boot</groupId>
