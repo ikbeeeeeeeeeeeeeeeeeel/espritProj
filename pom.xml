@@ -98,7 +98,6 @@
         </plugins>
     </build>
     
-          <version>1.0.0</version> <!-- No SNAPSHOT, this is a release version -->
           <distributionManagement>
            <repository>
              <id>deploymentRepo</id>
