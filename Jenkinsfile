@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-       stage('Deploy to Nexus') {
+        stage('Deploy to Nexus') {
             steps {
                 echo "Deploying to Nexus"
                 withCredentials([usernamePassword(credentialsId: 'deploymentRepo', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
@@ -69,18 +69,21 @@ pipeline {
                 }
             }
         }
+
         stage('Dependency-Check') {
             steps {
                 echo "Running OWASP Dependency-Check"
-                dependencyCheckAnalyzer datadir: '', scanpath: 'src/', outdir: '', 
-                suppressionFile: '', includeHtmlReports: true, odcInstallation: 'DP-Check'
+                dependencyCheckAnalyzer scanpath: 'src/',
+                    failOnError: true, 
+                    includeHtmlReports: true, 
+                    odcInstallation: 'DP-Check'
             }
         }
-   }
+    }
 
     post {
         always {
             echo 'Pipeline finished.'
         }
     }
-} 
+}
