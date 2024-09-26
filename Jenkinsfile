@@ -73,9 +73,7 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 echo "Running OWASP Dependency-Check"
-                dependencyCheck scanpath: 'src/', odcInstallation: 'DP-Check', 
-                    outdir: '', suppressionFile: '', datadir: '', 
-                    includeHtmlReports: true
+                dependencyCheck additionalArguments: '--scan src/ --out . --format HTML', odcInstallation: 'DP-Check'
             }
         }
     }
