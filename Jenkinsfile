@@ -72,7 +72,8 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 echo "Running OWASP Dependency-Check"
-                sh 'mvn dependency-check:check'
+                dependencyCheckAnalyzer datadir: '', scanpath: 'src/', outdir: '', 
+                suppressionFile: '', includeHtmlReports: true, odcInstallation: 'DP-Check'
             }
         }
    }
