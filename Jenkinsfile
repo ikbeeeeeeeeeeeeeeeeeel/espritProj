@@ -66,10 +66,15 @@ pipeline {
                     mvn deploy \
                         -DaltDeploymentRepository=deploymentRepo::default::http://${NEXUS_USERNAME}:${NEXUS_PASSWORD}@172.17.0.4:8081/repository/maven-releases/
                     '''
+                }
+            }
         }
-    }
-}
-
+        stage('Dependency-Check') {
+            steps {
+                echo "Running OWASP Dependency-Check"
+                sh 'mvn dependency-check:check'
+            }
+        }
    }
 
     post {
