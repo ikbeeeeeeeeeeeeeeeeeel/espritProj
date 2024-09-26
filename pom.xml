@@ -99,12 +99,16 @@
                   <groupId>org.owasp</groupId>
                   <artifactId>dependency-check-maven</artifactId>
                   <version>8.2.0</version> <!-- Use the latest version available -->
+                  <configuration>
+                      <format>ALL</format>
+                      <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+                  </configuration>
                   <executions>
-                           <execution>
-                                    <goals>
-                                          <goal>check</goal>
-                                    </goals>
-                           </execution>
+                      <execution>
+                           <goals>
+                              <goal>check</goal>
+                           </goals>
+                      </execution>
                   </executions>
             </plugin>
         </plugins>
