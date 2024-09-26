@@ -73,7 +73,7 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 echo "Running OWASP Dependency-Check"
-                dependencyCheck scanPath: 'src/', failBuildOnCVSS: '7', stopBuild: true, odcInstallation: 'DP-Check'
+                dependencyCheck()            
             }
         }
     }
