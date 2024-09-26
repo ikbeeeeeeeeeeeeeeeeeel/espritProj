@@ -73,9 +73,8 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 echo "Running OWASP Dependency-Check"
-                dependencyCheck scanpath: 'src/', odcInstallation: 'DP-Check', 
-                    outdir: '', suppressionFile: '', datadir: '', 
-                    includeHtmlReports: true
+                dependencyCheck scanPath: 'src/', failBuildOnCVSS: '7', healthy: '', unHealthy: '', 
+                odcInstallation: 'DP-Check'
             }
         }
     }
