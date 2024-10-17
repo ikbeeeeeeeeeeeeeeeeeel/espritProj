@@ -19,10 +19,10 @@
     
     <properties>
         <java.version>1.8</java.version>
-        <sonar.host.url>http://172.17.0.3:9000</sonar.host.url>
+        <sonar.host.url>http://172.17.0.2:9000</sonar.host.url>
         <sonar.login>token-ikbel</sonar.login>
         <sonar.maven.plugin.version>3.8.0.2131</sonar.maven.plugin.version>
-        <nexus.url>http://172.17.0.4:8081/repository</nexus.url>
+        <nexus.url>http://172.17.0.3:8081/repository</nexus.url>
         <nexus.release.repository>maven-releases</nexus.release.repository>
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
     </properties>
@@ -92,7 +92,7 @@
                 <version>2.8.2</version>
                 <configuration>
                     <repositoryId>deploymentRepo</repositoryId>
-                    <url>http://172.17.0.4:8081/repository/maven-releases/</url>
+                    <url>http://172.17.0.3:8081/repository/maven-releases/</url>
                 </configuration>
             </plugin>
             <plugin>
@@ -117,7 +117,7 @@
           <distributionManagement>
            <repository>
              <id>deploymentRepo</id>
-             <url>http://172.17.0.4:8081/repository/maven-releases/</url>
+             <url>http://172.17.0.3:8081/repository/maven-releases/</url>
            </repository>
           </distributionManagement>
 
